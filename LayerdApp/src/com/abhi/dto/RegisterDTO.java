@@ -6,12 +6,12 @@ public class RegisterDTO implements Serializable {
 	
 	private String  username;
 	private String password;
-	private String email;
-	private String mobileno; 
+	private String email; 
 	private String address;
 	private String dateofbirth;
 	private String gender;
 	private String picture;
+	private String mobileno;
 	
 	public String getUsername() {
 		return username;
@@ -31,12 +31,7 @@ public class RegisterDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getMobileno() {
-		return mobileno;
-	}
-	public void setMobileno(String mobileno) {
-		this.mobileno = mobileno;
-	}
+	
 	
 	public String getAddress() {
 		return address;
@@ -62,15 +57,18 @@ public class RegisterDTO implements Serializable {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+	public String getMobileno() {
+		return mobileno;
+	}
+	public void setMobileno(String mobileno) {
+		this.mobileno = mobileno;
+	}
 	@Override
 	public String toString() {
-		return "RegisterDTO [username=" + username + ", password=" + password + ", email=" + email + ", mobileno="
-				+ mobileno + ", address=" + address + ", dateofbirth=" + dateofbirth + ", gender=" + gender
-				+ ", picture=" + picture + "]";
+		return "RegisterDTO [username=" + username + ", password=" + password + ", email=" + email + ", address="
+				+ address + ", dateofbirth=" + dateofbirth + ", gender=" + gender + ", picture=" + picture
+				+ ", mobileno=" + mobileno + "]";
 	}
-	
-	
-	
 	
 	
 

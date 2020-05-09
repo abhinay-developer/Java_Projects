@@ -10,6 +10,7 @@ import com.abhi.dto.RegisterDTO;
 public class LoginDAO {
 	private static final String ADMIN_LOGIN = "SELECT COUNT(*) FROM ADMIN_LOGIN WHERE USERNAME=? AND PASSWORD=?";
 	private static final String REGISTER_QUERY = "INSERT INTO ANQ_REGISTER(USERNAME,PASSWORD,EMAIL,ADDRESS,DOB,GENDER,PICTURE,MOBILENO)VALUES(?,?,?,?,?,?,?,?)";
+	private static final String GET_PROFILE_QUERY = "SELECT USERNAME,PASSWORD,EMAIL,ADDRESS,DOB,GENDER,PICTURE,MOBILENO  FROM ANQ_REGISTER WHERE USERNAME=?";
 	Connection con = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -48,10 +49,9 @@ public class LoginDAO {
 
 	}
 
-	
 	public int RegistrationbyParamametrs(RegisterDTO dto) throws Exception {
-		
-	System.out.println(dto.getUsername());	
+
+		System.out.println(dto.getUsername());
 		int result = 0;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -79,4 +79,31 @@ public class LoginDAO {
 		return 0;
 	}
 
+	public RegisterDTO GetProfile(String username ) {
+		RegisterDTO dto=new RegisterDTO();
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
+			ps = con.prepareStatement(GET_PROFILE_QUERY);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if(rs.next())
+			{
+				dto.setUsername(rs.getString(1));
+				dto.setPassword(rs.getString(2));
+				dto.setEmail(rs.getString(3));
+				dto.setAddress(rs.getString(4));
+				dto.setDateofbirth(rs.getString(5));
+				dto.setGender(rs.getString(6));
+				dto.setPicture(rs.getString(7));
+				dto.setMobileno(rs.getString(8));
+				
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+		
+	}
 }

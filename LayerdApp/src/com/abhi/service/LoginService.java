@@ -19,5 +19,10 @@ public class LoginService {
 		dao=new LoginDAO();
 		return dao.RegistrationbyParamametrs(dto);
 	}
+	public RegisterDTO GetUserService(String username)
+	{  
+		dao=new LoginDAO();
+		return dao.GetProfile(username);
+	}
 
 }
