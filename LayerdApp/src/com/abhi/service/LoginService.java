@@ -1,12 +1,14 @@
 package com.abhi.service;
 
 import com.abhi.dao.LoginDAO;
+import com.abhi.dto.ProductsDTO;
 import com.abhi.dto.RegisterDTO;
 
 public class LoginService {
 
 	private LoginDAO dao;
 	private RegisterDTO dto;
+	private ProductsDTO pdto;
 
 	public int CheckUserLogin(String username, String password)throws Exception {
 
@@ -24,5 +26,16 @@ public class LoginService {
 		dao=new LoginDAO();
 		return dao.GetProfile(username);
 	}
+	public int  AddProductsService(ProductsDTO pdto)throws Exception
+	{
+		dao=new LoginDAO();
+		return dao.AddProducts(pdto);
+	}
+	public ProductsDTO GetProductsService(String heading)
+	{
+		dao=new LoginDAO();
+		return dao.GetProducts(heading);
+	}
+	
 
 }

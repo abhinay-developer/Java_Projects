@@ -5,12 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.abhi.dto.ProductsDTO;
 import com.abhi.dto.RegisterDTO;
 
 public class LoginDAO {
 	private static final String ADMIN_LOGIN = "SELECT COUNT(*) FROM ADMIN_LOGIN WHERE USERNAME=? AND PASSWORD=?";
 	private static final String REGISTER_QUERY = "INSERT INTO ANQ_REGISTER(USERNAME,PASSWORD,EMAIL,ADDRESS,DOB,GENDER,PICTURE,MOBILENO)VALUES(?,?,?,?,?,?,?,?)";
 	private static final String GET_PROFILE_QUERY = "SELECT USERNAME,PASSWORD,EMAIL,ADDRESS,DOB,GENDER,PICTURE,MOBILENO  FROM ANQ_REGISTER WHERE USERNAME=?";
+	private static final String ADD_QUERY="INSERT INTO ANQ_ADD_PRODUCTS(HEADING,SEARCHKEYWORD,DESCRIPTION)VALUES(?,?,?)";
+	private static final String GET_PRODUCTS_QUERY="SELECT HEADING,SEARCHKEYWORD,DESCRIPTION FROM ANQ_ADD_PRODUCTS WHERE HEADING=?";
 	Connection con = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -106,4 +109,55 @@ public class LoginDAO {
 		return dto;
 		
 	}
+	public int AddProducts(ProductsDTO pDto)throws Exception
+	{
+		int result=0;
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
+			ps = con.prepareStatement(ADD_QUERY);
+			ps.setString(1, pDto.getHeading());
+			ps.setString(2, pDto.getSearchkeyword());
+			ps.setString(3, pDto.getDescription());
+			result = ps.executeUpdate();
+			if (result > 0)
+
+				return result;
+			else
+				return result;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+
+	public ProductsDTO GetProducts(String heading) {
+	ProductsDTO pdto=new ProductsDTO();
+	try
+	{
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
+		ps = con.prepareStatement(GET_PRODUCTS_QUERY);
+        ps.setString(1, pdto.getHeading());
+		/*
+		 * ps.setString(2, pdto.getSearchkeyword()); ps.setString(3,
+		 * pdto.getDescription());
+		 */  rs=ps.executeQuery();
+        if(rs.next())
+        {
+	      pdto.setHeading(rs.getString(1));
+	      pdto.setSearchkeyword(rs.getString(2));
+	      pdto.setDescription(rs.getString(3));
+        }        	
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	return pdto;
+}
 }

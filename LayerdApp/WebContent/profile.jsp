@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
 <meta charset="ISO-8859-1">
 <title>userprofile</title>
 </head>
