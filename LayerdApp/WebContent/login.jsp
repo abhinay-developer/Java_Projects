@@ -21,7 +21,7 @@
 				<input type="submit" value="LOGIN">
 			</div>
 			<div class="container">
-				<span>CreateAccount?</span> <a href="user_registration.jsp">Register</a>
+				<span>CreateAccount?</span> <a href="registration.jsp">Register</a>
 			</div>
 		</div>
 	</div>

@@ -5,14 +5,17 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.abhi.dto.RegisterDTO;
+
 public class LoginDAO {
 	private static final String ADMIN_LOGIN = "SELECT COUNT(*) FROM ADMIN_LOGIN WHERE USERNAME=? AND PASSWORD=?";
+	private static final String REGISTER_QUERY = "INSERT INTO ANQ_REGISTER(USERNAME,PASSWORD,EMAIL,ADDRESS,DOB,GENDER,PICTURE,MOBILENO)VALUES(?,?,?,?,?,?,?,?)";
+	Connection con = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	int count = 0;
 
-	public int CheckUserLoginByParameters(String username, String password)throws Exception {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		int count = 0;
+	public int CheckUserLoginByParameters(String username, String password) throws Exception {
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -42,5 +45,38 @@ public class LoginDAO {
 		}
 
 		return 0;
+
 	}
+
+	
+	public int RegistrationbyParamametrs(RegisterDTO dto) throws Exception {
+		
+	System.out.println(dto.getUsername());	
+		int result = 0;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "root");
+			ps = con.prepareStatement(REGISTER_QUERY);
+			ps.setString(1, dto.getUsername());
+			ps.setString(2, dto.getPassword());
+			ps.setString(3, dto.getEmail());
+			ps.setString(4, dto.getAddress());
+			ps.setString(5, dto.getDateofbirth());
+			ps.setString(6, dto.getGender());
+			ps.setString(7, dto.getPicture());
+			ps.setString(8, dto.getMobileno());
+
+			result = ps.executeUpdate();
+			if (result > 0)
+
+				return result;
+			else
+				return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 }
