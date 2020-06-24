@@ -3,11 +3,13 @@ package com.abhi.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.abhi.dao.DataAccessObject;
 import com.abhi.dto.UserDTO;
@@ -27,6 +29,9 @@ public class LoginServlet extends HttpServlet {
 	PrintWriter pw=null;
 	String firstName=null;
 	String password=null;
+	RequestDispatcher rd=null;
+	HttpSession session=null;
+	
 	pw=response.getWriter();
 	response.setContentType("text/html");
 	firstName=request.getParameter("userName");
@@ -34,7 +39,13 @@ public class LoginServlet extends HttpServlet {
 	try {
 		int count=service.UserLogin(firstName, password);
 		if(count==1) {
+			session=request.getSession(true);
+			session.setAttribute("firstName", firstName);
+			session.setAttribute("password", password);
 			pw.println("<h3 style='color:green'>Login sucess</h3>");
+		     rd=request.getRequestDispatcher("admin_home.jsp");
+		     rd.forward(request, response);
+		     
 		}
 		else {
 			pw.print("<h3 style='color:red'>Failed</h3>");

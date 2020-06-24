@@ -7,31 +7,26 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
 <title>login</title>
-<style>
-input[type='text'], input[type='password'] {
-	width: 30%;
-}
-</style>
 </head>
 <body>
-	<form action="loginurl" method="post" id="form">
+	<form action="companyloginurl" method="post" >
 		<div class="container">
-			<h1 class="text-primary text-center">Login</h1>
-			<div class="form-group ">
+		<h1 class="text-primary text-center">Login</h1>
+			<div class="form-group">
 				<label for="username">Username</label> <input type="text"
-					name="userName" placeholder="enter userName" class="form-control">
+					name="companyName" placeholder="enter companyName" class="form-control">
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label> <input type="password"
 					name="password" placeholder="enter password" class="form-control">
 			</div>
-			<div class="form-group">
+			<div class="mt-4 conatiner">
 				<button type="reset" class="btn btn-info">Reset</button>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</div>
 			<div class="container">
 				If You Don't Have An Account Register Here? <a
-					href="user_register.jsp">Register</a>
+					href="company_register.jsp">Copmany Register</a>
 			</div>
 		</div>
 	</form>
